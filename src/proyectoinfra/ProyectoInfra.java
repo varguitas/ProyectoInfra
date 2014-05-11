@@ -1,7 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ ITCR - Licenciatura de Administración de TI
+ * Infraestructura Tecnológica I
+ * I Semetre de 2014
+ * Proyecto #1: Message Passing
+ * 
+ * Integrantes:
+ *  -Victor Vargas Ramírez
+ *  -Benjamín Calvo De León
+ *  -José Pablo Matamoros Moya
  */
 
 package proyectoinfra;
@@ -9,10 +15,7 @@ package proyectoinfra;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- *
- * @author Vargas
- */
+
 public class ProyectoInfra {
 
     public static class Consola {
@@ -77,7 +80,7 @@ public class ProyectoInfra {
     public static void main(String[] args) {
         // TODO code application logic here
         Consola c = new Consola(true);
-        c.parse_query("send( 'Hola mundo' ,8, 9 );");
+        c.parse_query("send('Hola mundo' ,8,9 );");
     }
     
 }
