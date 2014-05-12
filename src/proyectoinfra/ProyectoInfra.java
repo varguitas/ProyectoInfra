@@ -46,7 +46,7 @@ class Mensaje {
 //Clase Consola, encargada de interpretar los comandos de la consola y parsear la información
 //Devuelve True si todo sale bien, de lo contrario muestra el tipo de error de comandos
 class Consola {
-    boolean hay_prioridad;
+    private boolean hay_prioridad;
     public Consola(boolean prioridad){
         this.hay_prioridad = prioridad;
     }
