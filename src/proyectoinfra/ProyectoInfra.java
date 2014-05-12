@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 //Clase Mensaje, define la estructura que tendrán los mensajes que se envian entre procesos
-class Mensaje {
+class Mensaje{
     //Cuerpo del mensaje
     private String cuerpo;
     //Cabecera del Mensaje
@@ -25,20 +25,23 @@ class Mensaje {
     private String id_origen;
     private int longitud;
     //Información de control
-    private int num_sec;
-
-    public void inicializar(String iddestino, String idorigen, int secuencia, String body){
-        cuerpo = body;
-        id_destino = iddestino;
-        id_origen = idorigen;
-        num_sec = secuencia;
-        longitud = cuerpo.length();
+    private int id_mensaje;
+    private static int numsec = 1; //Variable estatica que me permite controlar los numeros de secuencia de los mensajes
+    //Contructor de la clase
+    public Mensaje(String iddestino, String idorigen, int secuencia, String body){
+        this.cuerpo = body;
+        this.id_destino = iddestino;
+        this.id_origen = idorigen;
+        this.id_mensaje = secuencia;
+        this.longitud = cuerpo.length();
+        this.id_mensaje = this.numsec;
+        this.numsec++;
     }
     public void imprimir_mensaje(){
         System.out.print("MENSAJE");
         System.out.print("ID Destino: " + id_destino + " - ID Origen: " + id_origen + "\n");
         System.out.print("Longitud del Mensaje: " + longitud + "\n");
-        System.out.print("# de secuencia: " + num_sec + "\n");
+        System.out.print("# de secuencia: " + id_mensaje + "\n");
         System.out.print("Mensaje: " + cuerpo + "\n");
     }
 }
@@ -104,14 +107,13 @@ class Consola {
     }
 }
 
-public class ProyectoInfra {   
+public class ProyectoInfra {     
     public static void main(String[] args) {
         // TODO code application logic here
         Consola c = new Consola(true);
         c.parse_query("send('Hola mundo' ,8,9 );");
         //Pruebas Pablo
-        Mensaje m = new Mensaje();
-        m.inicializar("P130", "P080", 1, "Primer mensaje de prueba por PABLO");
+        Mensaje m = new Mensaje("P130", "P080", 1, "Primer mensaje de prueba por PABLO");
         m.imprimir_mensaje();
-    }  
+    } 
 }
