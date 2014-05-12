@@ -1,0 +1,20 @@
+Se parte a de dos primitivas:
+	-Send (destino, mensaje)
+	-Receive (origen, mensaje)
+
+SINCORNIZACIÓN:
+	1.Send
+		a. Bloqueante: Se bloquea hasta que el proceso destino reciba el mensaje
+		b. No bloqueante: No se bloquea y puede seguir realizando tareas con normalidad.
+
+	2. Receive: Para esta primitiva tenemos que tener en cuenta dos opciones:
+		a. Si el mensaje fue enviado previamente será recibido y la ejecución continua normalmente.
+		b. Si no hay mensajes esperando entonces hay dos opciones más.
+			b.1. El proceso se bloquea hasta que se reciba el mensaje.
+			b.2. El proceso continua ejecutando y abandona el intento de recepción.
+
+	TRES DE LAS COMBINACIONES MÁS TÍPICAS:
+	1. Envío bloqueante, recepción bloqueante: Ambos emisor y receptor se bloquean hasta que el mensaje se entrega, conocido 		también como rendezvous.
+	2. Envío no bloqueante, recepción bloqueante: Aunque el emisor puede continuar, el receptor se bloqueará hasta que el 	mensaje solicitado llegue. Probablemente la combinación más útil (Colocarla por default).
+	3. Envío no bloqueante, recepción no bloqueante: Ninguna de las dos partes debe esperar nada, se envía y se recibe cuando 	se desea recibir. (Problemas cuando es comunicación de procesos por red).
+	
