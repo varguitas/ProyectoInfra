@@ -28,17 +28,16 @@ class Mensaje{
     private int id_mensaje;
     private static int numsec = 1; //Variable estatica que me permite controlar los numeros de secuencia de los mensajes
     //Contructor de la clase
-    public Mensaje(String iddestino, String idorigen, int secuencia, String body){
+    public Mensaje(String iddestino, String idorigen, String body){
         this.cuerpo = body;
         this.id_destino = iddestino;
         this.id_origen = idorigen;
-        this.id_mensaje = secuencia;
         this.longitud = cuerpo.length();
-        this.id_mensaje = this.numsec;
-        this.numsec++;
+        this.id_mensaje = Mensaje.numsec;
+        Mensaje.numsec++;
     }
     public void imprimir_mensaje(){
-        System.out.print("MENSAJE");
+        System.out.print("MENSAJE \n");
         System.out.print("ID Destino: " + id_destino + " - ID Origen: " + id_origen + "\n");
         System.out.print("Longitud del Mensaje: " + longitud + "\n");
         System.out.print("# de secuencia: " + id_mensaje + "\n");
@@ -113,7 +112,9 @@ public class ProyectoInfra {
         Consola c = new Consola(true);
         c.parse_query("send('Hola mundo' ,8,9 );");
         //Pruebas Pablo
-        Mensaje m = new Mensaje("P130", "P080", 1, "Primer mensaje de prueba por PABLO");
+        Mensaje m = new Mensaje("P130", "P080", "Primer mensaje de prueba por PABLO");
         m.imprimir_mensaje();
+        Mensaje z = new Mensaje("P280", "P620", "Segundo mensaje de prueba por PABLO");
+        z.imprimir_mensaje();
     } 
 }
