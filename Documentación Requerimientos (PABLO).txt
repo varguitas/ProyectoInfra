@@ -1,4 +1,4 @@
-Se parte a de dos primitivas:
+Se parte de dos primitivas:
 	-Send (destino, mensaje)
 	-Receive (origen, mensaje)
 
