@@ -10,5 +10,5 @@ public class ProyectoInfra {
         m.imprimir_mensaje();
         Mensaje z = new Mensaje("P280", "P620", "Segundo mensaje de prueba por PABLO");
         z.imprimir_mensaje();
-    } 
+    }
 }

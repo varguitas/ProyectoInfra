@@ -11,7 +11,7 @@ class Mensaje {
     private int id_mensaje;
     private static int numsec = 1; //Variable estatica que me permite controlar los numeros de secuencia de los mensajes
     //Contructor de la clase
-    public Mensaje(String iddestino, String idorigen, String body){
+    Mensaje(String iddestino, String idorigen, String body){
         this.cuerpo = body;
         this.id_destino = iddestino;
         this.id_origen = idorigen;
@@ -19,7 +19,7 @@ class Mensaje {
         this.id_mensaje = Mensaje.numsec;
         Mensaje.numsec++;
     }
-    public void imprimir_mensaje(){
+    void imprimir_mensaje(){
         System.out.print("MENSAJE \n");
         System.out.print("ID Destino: " + id_destino + " - ID Origen: " + id_origen + "\n");
         System.out.print("Longitud del Mensaje: " + longitud + "\n");
