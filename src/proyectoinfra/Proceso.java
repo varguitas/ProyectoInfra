@@ -17,23 +17,25 @@ public class Proceso {
     
     void imprime_entrada(){
         for (int i=0; i<entrada.size();i++){
-            System.out.print("Mensaje#"+(i+1)+"\n");
+            System.out.print("Mensaje Entrada#"+(i+1)+" - Proceso: "+ this.nombre+"\n");
             entrada.get(i).imprimir();
         }
     }
     
     void imprime_salida(){
         for (int i=0; i<salida.size();i++){
-            System.out.print("Mensaje#"+(i+1)+"\n");
+            System.out.print("Mensaje Salida#"+(i+1)+" - Proceso: "+ this.nombre+"\n");
             salida.get(i).imprimir();
         }
     }
     
     void imprime_recibido(){
         for (int i=0; i<recibido.size();i++){
-            System.out.print("Mensaje#"+(i+1)+"\n");
+            System.out.print("Mensaje Recibido#"+(i+1)+" - Proceso: "+ this.nombre+"\n");
             recibido.get(i).imprimir();
         }
     }
-    
+    String get_name(){
+        return this.nombre;
+    }
 }
