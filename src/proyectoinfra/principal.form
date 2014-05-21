@@ -279,9 +279,7 @@
                       <Color blue="d6" green="ed" red="df" type="rgb"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                        <LineBorder/>
-                      </Border>
+                      <Border info="null"/>
                     </Property>
                   </Properties>
                   <Events>

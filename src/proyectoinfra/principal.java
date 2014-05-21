@@ -120,7 +120,7 @@ public class principal extends javax.swing.JFrame {
         jLabel2.setText("Consola>");
 
         jTextField1.setBackground(new java.awt.Color(223, 237, 214));
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField1.setBorder(null);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
