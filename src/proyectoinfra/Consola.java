@@ -2,13 +2,14 @@ package proyectoinfra;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JTextArea;
 
 class Consola {
     private boolean hay_prioridad;
     public Consola(boolean prioridad){
         this.hay_prioridad = prioridad;
     }
-    public boolean parse_query(String texto) {
+    public boolean parse_query(String texto,JTextArea Bitacora) {
         ArrayList<String> texto_lista = new ArrayList<String>(Arrays.asList(texto.split("\\(|\\)")));
         if (texto_lista.size()==3) {
             String comando = texto_lista.get(0);

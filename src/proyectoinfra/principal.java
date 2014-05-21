@@ -204,7 +204,7 @@ public class principal extends javax.swing.JFrame {
         int total_comandos = ColaComandos.size();
         int indice = 0;
         while(total_comandos > indice){
-            consola.parse_query(ColaComandos.remove(0));
+            consola.parse_query(ColaComandos.remove(0),Bitacora);
             indice++;
         }
     }//GEN-LAST:event_jButton2ActionPerformed
