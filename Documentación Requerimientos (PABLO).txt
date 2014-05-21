@@ -32,7 +32,7 @@ DIRECCIONAMIENTO:
 	- Uno a Muchos: Un proceso envía a un puerto donde muchos reciben.
 	- Muchos a Muchos: Muchos procesos envían a un buzón donde muchos más reciben.
 
-		a. Estático: Se crea el buzón (conocido como puerto) asociando el proceso que recibirá de el permanentemente. Una relación de uno a uno se enomina estática, cuando se asocia el puerto al proceso receptor se tiene la posibilidad de que al eliminar el proceso se elimine también el puerto asignado.
+		a. Estático: Se crea el buzón (conocido como puerto) asociando el proceso que recibirá de el permanentemente. Una relación de uno a uno se denomina estática, cuando se asocia el puerto al proceso receptor se tiene la posibilidad de que al eliminar el proceso se elimine también el puerto asignado.
 		b. Dinámico: Cuando hay varios procesos emisores a un mismo puerto, esta asociación se hace de forma dinámica. Para esto se pueden utilizar primitivas como connect y disconnect. En este caso los puertos son creados por un servicio que lo permita, en el caso que se quiera eliminar este puerto se debe hacer desde el servicio de forma explícita.
 	 
 	

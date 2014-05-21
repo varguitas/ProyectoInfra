@@ -4,14 +4,14 @@ class Mensaje {
     //Cuerpo del mensaje
     private String cuerpo;
     //Cabecera del Mensaje
-    private String id_destino; //definir si se hace con int o con String
-    private String id_origen;
+    private int id_destino; //definir si se hace con int o con String
+    private int id_origen;
     private int longitud;
     //Información de control
     private int id_mensaje;
     private static int numsec = 1; //Variable estatica que me permite controlar los numeros de secuencia de los mensajes
     //Contructor de la clase
-    Mensaje(String iddestino, String idorigen, String body){
+    Mensaje(int iddestino, int idorigen, String body){
         this.cuerpo = body;
         this.id_destino = iddestino;
         this.id_origen = idorigen;
