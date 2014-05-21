@@ -12,19 +12,11 @@ public class ProyectoInfra {
         m.imprimir_mensaje();
         Mensaje z = new Mensaje("P280", "P620", "Segundo mensaje de prueba por PABLO");
         z.imprimir_mensaje();*/
-        
-       //Pruebas de comunicación
-         ArrayList <Proceso> general = new ArrayList<Proceso>();
-         int cantidad = 5;
-         //Crea una cantidad n de procesos en una estructura de arreglo de procesos, los cuales se puede comunicar.
-         for (int i=0;i<cantidad;i++){
-            general.add(new Proceso(i+1,"P"+(i+1)+""));
-         }
-         //Imprimir Arreglo
-        for (int i=0;i<cantidad;i++){
-            System.out.print("Proceso #: "+general.get(i).rank +"\n");
-            System.out.print("Nombre: "+general.get(i).nombre +"\n");
-        }
+        Mensajeria principal = new Mensajeria (5);
+        principal.imprimir();
+        principal.send("P1", "P5", "playo codigo de mierda");
+        principal.general.get(4).imprime_entrada();
+        principal.general.get(0).imprime_salida();
     }
 
 }

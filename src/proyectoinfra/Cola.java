@@ -1,19 +1,20 @@
 package proyectoinfra;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Cola {
-    int size;
-    int rank;
+    int tamaño;
+    int id;
     
-    Cola(int tamano, int id){
-        this.size = tamano;
-        this.rank = id;
-        if (size == 0){
+    Cola(int t, int identificador){
+        this.tamaño = t;
+        this.id = identificador;
+        if (tamaño != 0){
            ArrayList <Mensaje> cola = new ArrayList<>(); 
         }
         else{
-           Mensaje [] cola= new Mensaje[size];
+           JOptionPane.showMessageDialog(null, "¡Error: Tamaño de la cola incorrecto!");
         }
     }
 }

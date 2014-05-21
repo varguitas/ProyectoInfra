@@ -6,12 +6,34 @@ public class Proceso {
     int rank; // identificador del mensaje (0 a p-1) con p = procesos
     String nombre;
     boolean estado = true;
-    ArrayList <Mensaje> salida = new ArrayList<Mensaje>(); //Arreglo que contiene los mensaje enviados por un proceso
-    ArrayList <Mensaje> entrada = new ArrayList<Mensaje>(); //Arreglo que contiene los mensaje recibidos por un proceso
-
+    ArrayList <Mensaje> salida = new ArrayList<Mensaje>(); //Contiene los mensajes enviados por un proceso
+    ArrayList <Mensaje> entrada = new ArrayList<Mensaje>(); //Contiene los mensajes de entrada de un proceso
+    ArrayList <Mensaje> recibido = new ArrayList<Mensaje>();// Contiene los mensajes que ya han sido recibidos bajo la primitiva
+    
     Proceso(int id, String name){
         this.rank = id;
         this.nombre = name;
     }
+    
+    void imprime_entrada(){
+        for (int i=0; i<entrada.size();i++){
+            System.out.print("Mensaje#"+(i+1)+"\n");
+            entrada.get(i).imprimir();
+        }
+    }
+    
+    void imprime_salida(){
+        for (int i=0; i<salida.size();i++){
+            System.out.print("Mensaje#"+(i+1)+"\n");
+            salida.get(i).imprimir();
+        }
+    }
+    
+    void imprime_recibido(){
+        for (int i=0; i<recibido.size();i++){
+            System.out.print("Mensaje#"+(i+1)+"\n");
+            recibido.get(i).imprimir();
+        }
+    }
+    
 }
-
