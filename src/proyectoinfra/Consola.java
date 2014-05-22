@@ -12,7 +12,13 @@ class Consola {
     public boolean parse_query(String texto,JTextArea Bitacora) {
         ArrayList<String> texto_lista = new ArrayList<String>(Arrays.asList(texto.split("\\(|\\)")));
         if (texto_lista.size()==3) {
-            String comando = texto_lista.get(0);
+            ArrayList<String> origen_comando = new ArrayList<String>(Arrays.asList(texto_lista.get(0).split(".")));
+            if (origen_comando.size()!=2) {
+                Bitacora.setText(Bitacora.getText()+"\nProceso Origen debe ser especificado.");
+                return false;
+            }
+            String origen = origen_comando.get(0);
+            String comando = origen_comando.get(1);
             String parametros = texto_lista.get(1);
             /* Vacion es una variable que permite realizar el split al final del comando. Puede ser un
             * ';' , un ',' o un espacio

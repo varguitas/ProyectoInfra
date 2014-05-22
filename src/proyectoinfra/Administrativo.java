@@ -49,7 +49,7 @@ public class Administrativo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         format_type = new javax.swing.JComboBox();
         label_address_direct_type = new javax.swing.JLabel();
-        address_direct_type = new javax.swing.JComboBox();
+        address_direct_receive_type = new javax.swing.JComboBox();
         address_indirect_type = new javax.swing.JComboBox();
         label_address_indirect_type = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -63,6 +63,8 @@ public class Administrativo extends javax.swing.JFrame {
         adm_continue_1 = new javax.swing.JButton();
         label_format_size = new javax.swing.JLabel();
         format_size = new javax.swing.JSpinner();
+        address_direct_send_type = new javax.swing.JComboBox();
+        label_address_direct_type1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Configuración del Sistema");
@@ -132,10 +134,10 @@ public class Administrativo extends javax.swing.JFrame {
         label_address_direct_type.setText("Receptor (RECEIVE):");
         label_address_direct_type.setOpaque(true);
 
-        address_direct_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Explícito", "Implícito" }));
-        address_direct_type.addActionListener(new java.awt.event.ActionListener() {
+        address_direct_receive_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Explícito", "Implícito" }));
+        address_direct_receive_type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                address_direct_typeActionPerformed(evt);
+                address_direct_receive_typeActionPerformed(evt);
             }
         });
 
@@ -199,6 +201,18 @@ public class Administrativo extends javax.swing.JFrame {
         format_size.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         format_size.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
+        address_direct_send_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Explícito", "Implícito" }));
+        address_direct_send_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                address_direct_send_typeActionPerformed(evt);
+            }
+        });
+
+        label_address_direct_type1.setBackground(new java.awt.Color(255, 255, 255));
+        label_address_direct_type1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        label_address_direct_type1.setText("Emisor (SEND):");
+        label_address_direct_type1.setOpaque(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -246,8 +260,13 @@ public class Administrativo extends javax.swing.JFrame {
                                     .addComponent(label_address_direct_type))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(address_direct_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(address_indirect_type, 0, 111, Short.MAX_VALUE)))
+                                    .addComponent(address_direct_receive_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(address_indirect_type, 0, 111, Short.MAX_VALUE))
+                                .addGap(37, 37, 37)
+                                .addComponent(label_address_direct_type1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(address_direct_send_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(14, 14, 14))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -307,10 +326,12 @@ public class Administrativo extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_address_direct_type)
-                    .addComponent(address_direct_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(address_direct_receive_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_address_indirect_type)
+                    .addComponent(address_direct_send_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_address_direct_type1)
                     .addComponent(address_indirect_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -321,7 +342,7 @@ public class Administrativo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 26, Short.MAX_VALUE)
                         .addComponent(label_format_size)
                         .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -359,12 +380,13 @@ public class Administrativo extends javax.swing.JFrame {
 
     private void address_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_address_typeActionPerformed
         if(address_type.getSelectedItem().equals("Indirecto")) {
-            address_direct_type.setVisible(false);
+            address_direct_receive_type.setVisible(false);
+            address_direct_send_type.setVisible(false);
             label_address_direct_type.setVisible(false);
             address_indirect_type.setVisible(true);
             label_address_indirect_type.setVisible(true);
         } else {
-            address_direct_type.setVisible(true);
+            address_direct_receive_type.setVisible(true);
             label_address_direct_type.setVisible(true);
             address_indirect_type.setVisible(false);
             label_address_indirect_type.setVisible(false);
@@ -375,9 +397,9 @@ public class Administrativo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_address_indirect_typeActionPerformed
 
-    private void address_direct_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_address_direct_typeActionPerformed
+    private void address_direct_receive_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_address_direct_receive_typeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_address_direct_typeActionPerformed
+    }//GEN-LAST:event_address_direct_receive_typeActionPerformed
 
     private void format_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_format_typeActionPerformed
         if (format_type.getSelectedItem().equals("Variable")) {
@@ -400,6 +422,10 @@ public class Administrativo extends javax.swing.JFrame {
     private void adm_continue_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adm_continue_1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adm_continue_1ActionPerformed
+
+    private void address_direct_send_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_address_direct_send_typeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_address_direct_send_typeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,7 +463,8 @@ public class Administrativo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox address_direct_type;
+    private javax.swing.JComboBox address_direct_receive_type;
+    private javax.swing.JComboBox address_direct_send_type;
     private javax.swing.JComboBox address_indirect_type;
     private javax.swing.JComboBox address_type;
     private javax.swing.JButton adm_continue_1;
@@ -462,6 +489,7 @@ public class Administrativo extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel label_address_direct_type;
+    private javax.swing.JLabel label_address_direct_type1;
     private javax.swing.JLabel label_address_indirect_type;
     private javax.swing.JLabel label_format_size;
     private javax.swing.JSpinner number_process;
