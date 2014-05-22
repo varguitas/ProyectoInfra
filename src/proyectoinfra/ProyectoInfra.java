@@ -12,10 +12,10 @@ public class ProyectoInfra {
         m.imprimir_mensaje();
         Mensaje z = new Mensaje("P280", "P620", "Segundo mensaje de prueba por PABLO");
         z.imprimir_mensaje();*/
-        Mensajeria principal = new Mensajeria (5);
+        Mensajeria principal = new Mensajeria(5);
         //principal.imprimir();
         System.out.print("\nENVIO DEL PRIMER MENSAJE\n");
-        principal.send("P1", "P5", "aguacate");
+        principal.send("P1","P5", "aguacate");
         principal.imprimir_mensajes(principal);
         //Hace el receive
         System.out.print("\nRECEIVE DEL PRIMER MENSAJE\n");
@@ -23,12 +23,11 @@ public class ProyectoInfra {
         principal.imprimir_mensajes(principal);
         //Envío de otro mensaje
         System.out.print("\nENVIO DEL SEGUNDO MENSAJE\n");
-        principal.send("P1", "P3", "chayote");
+        principal.send("P1","P3", "chayote");
         principal.imprimir_mensajes(principal);
         //Haciendo el otro receive
         System.out.print("\nRECEIVE DEL SEGUNDO MENSAJE\n");
         principal.receive("P3","P1");
         principal.imprimir_mensajes(principal);
     }
-    
 }
