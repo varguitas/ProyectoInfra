@@ -32,9 +32,10 @@ class Consola {
                         if (hay_prioridad == true) {
                             prioridad = comandos.get(2);
                         }
-                        System.out.println(proceso_destino);
-                        System.out.println(contenido_mensaje);
-                        System.out.println(prioridad);
+                        Bitacora.setText(Bitacora.getText()+"\nsend("+proceso_destino+",'"+contenido_mensaje+"');");
+                        //System.out.println(proceso_destino);
+                        //System.out.println(contenido_mensaje);
+                        //System.out.println(prioridad);
                     } else {
                         this.printMessageError(3);
                     }
