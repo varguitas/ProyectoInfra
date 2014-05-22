@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Proceso {
     int rank; // identificador del mensaje (0 a p-1) con p = procesos
     String nombre;
+    String alias;
     boolean estado = true;
     ArrayList <Mensaje> salida = new ArrayList<Mensaje>(); //Contiene los mensajes enviados por un proceso
     ArrayList <Mensaje> entrada = new ArrayList<Mensaje>(); //Contiene los mensajes de entrada de un proceso

@@ -2,15 +2,15 @@
 package proyectoinfra;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Mensajeria {
     ArrayList <Proceso> general = new ArrayList<Proceso>();
     int tamaño;
-
     Mensajeria(int tamano){
         this.tamaño = tamano;
         for (int i=0;i<tamano;i++){
-        this.general.add(new Proceso(i+1,"P"+(i+1)+""));
+            this.general.add(new Proceso(i+1,"P"+(i+1)+""));
         }
     }
     
@@ -52,5 +52,23 @@ public class Mensajeria {
            System.out.print("Nombre: "+general.get(i).nombre +"\n");
         }
     }
-    
+    public Proceso getProceso(String nombre,boolean with_alias){
+        if (with_alias){
+            for (Iterator<Proceso> it = general.iterator(); it.hasNext();) {
+                Proceso elemento = it.next();
+                if(elemento.alias.equals(nombre)) {
+                    return elemento;
+                }
+            }
+            return null;
+        } else {
+            for (Iterator<Proceso> it = general.iterator(); it.hasNext();) {
+                Proceso elemento = it.next();
+                if(elemento.nombre.equals(nombre)) {
+                    return elemento;
+                }
+            }
+            return null;
+        }
+    }    
 }
