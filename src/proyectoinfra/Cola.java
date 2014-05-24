@@ -2,7 +2,6 @@ package proyectoinfra;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import proyectoinfra.Mensaje;
 
 public class Cola{
     int tamaño;
@@ -19,11 +18,11 @@ public class Cola{
         else{
            JOptionPane.showMessageDialog(null, "¡Error: Tamaño de la cola incorrecto!");
         }
-    }/*
+    }
     void repartirMensajes (Mensaje pmensaje){
         Mensaje mensaje = pmensaje;
         for (Proceso proceso_actual : procesos_relacionados){
-            
+            proceso_actual.entrada.add(mensaje);
         }
-    }*/
+    }
 }

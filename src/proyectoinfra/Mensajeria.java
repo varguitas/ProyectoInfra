@@ -70,5 +70,24 @@ public class Mensajeria {
             }
             return null;
         }
-    }    
+    }
+    void sendImplicito(String origen, Cola pcola_mensajes, Mensaje pmensaje){
+        Cola cola_mensajes = pcola_mensajes;
+        Mensaje mensaje = pmensaje;
+        for (int i=0;i<(this.tamaño);i++){            
+           if (general.get(i).nombre.equals(mensaje.destino)){
+               (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+           }
+           if (general.get(i).nombre.equals(mensaje.origen)){
+               (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+           }
+        }
+    }
+    void sendDinamico(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
+        ArrayList<Proceso> procesos = pprocesos;
+        Mensaje mensaje = pmensaje;
+        for (Proceso proceso_actual : procesos){
+            proceso_actual.entrada.add(mensaje);
+        }
+    }
 }
