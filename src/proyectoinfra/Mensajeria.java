@@ -2,6 +2,7 @@
 package proyectoinfra;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Mensajeria {
@@ -52,6 +53,35 @@ public class Mensajeria {
            System.out.print("Nombre: "+general.get(i).nombre +"\n");
         }
     }
+    
+    void generar_cola(){ //Método que obtiene todos los mensajes en cola de entrada para todos los procesos.
+        ArrayList <Mensaje> cola_general = new ArrayList<Mensaje>();
+        for (Proceso proceso : this.general){
+            for(Mensaje m : proceso.entrada){
+                cola_general.add(m);
+            }
+        }
+        ArrayList<Integer> secuencia = new ArrayList<Integer>();
+        for (Mensaje m : cola_general){
+            secuencia.add(m.id_mensaje);
+        }
+        Collections.sort(secuencia);
+        ArrayList <Mensaje> cola_ordenada = new ArrayList<Mensaje>();
+        for (int s : secuencia){
+            for (Mensaje m : cola_general){
+                if (m.id_mensaje == s){
+                    cola_ordenada.add(m);
+                }
+            }
+        }
+        //Print de la cola ordenada
+        System.out.println("COLA DE MENSAJES");
+        for (Mensaje m : cola_ordenada){
+            m.imprimir();
+        }
+        System.out.println("FIN DE LA COLA DE MENSAJES");
+    }
+    
     public Proceso getProceso(String nombre,boolean with_alias){
         if (with_alias){
             for (Iterator<Proceso> it = general.iterator(); it.hasNext();) {
@@ -71,6 +101,7 @@ public class Mensajeria {
             return null;
         }
     }
+    
     void sendImplicito(String origen, Cola pcola_mensajes, Mensaje pmensaje){
         Cola cola_mensajes = pcola_mensajes;
         Mensaje mensaje = pmensaje;
@@ -83,6 +114,7 @@ public class Mensajeria {
            }
         }
     }
+    
     void sendDinamico(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
         ArrayList<Proceso> procesos = pprocesos;
         Mensaje mensaje = pmensaje;
