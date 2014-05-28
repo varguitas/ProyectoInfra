@@ -7,14 +7,25 @@ import java.util.Iterator;
 
 public class Mensajeria {
     ArrayList <Proceso> general = new ArrayList<Proceso>();
-    int tamaño;
-    Mensajeria(int tamano){
+    int tamaño; //Tamaño de la mensajería (cantidad de procesos)
+    int sincro_send = 0; //tipo de sincronización en el send
+    int sincro_receive = 0; //tipo de sincronización en el receive
+    int direc_directo = 0;  //Direccionamiento directo 1 - Explícito , 2 - Implícito
+    int direc_indirecto = 0; //Direccionamiento Indirecto 1 - Estático, 2 Dinámico
+
+    Mensajeria(int tamano, int sy_send, int sy_receive, int dir_direct, int dir_indirect){
         this.tamaño = tamano;
+        this.sincro_send = sy_send;
+        this.sincro_receive = sy_receive;
+        this.direc_directo = dir_direct;
+        this.direc_indirecto = dir_indirect;
+        
+        //Constructor del arreglo de procesos
         for (int i=0;i<tamano;i++){
             this.general.add(new Proceso(i+1,"P"+(i+1)+""));
         }
     }
-    
+    //SEND Y RECEIVE DIRECTO EXPLÍCITO
     void send(String origen, String destino, String msj){
         Mensaje mensaje = new Mensaje(origen,destino,msj);
         for (int i=0;i<(this.tamaño);i++){            
@@ -23,8 +34,7 @@ public class Mensajeria {
            }
            if (general.get(i).nombre.equals(origen)){
                (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-           }
-        }
+    }}
     }
     
     void receive(String proceso, String origen){
@@ -34,26 +44,34 @@ public class Mensajeria {
                     if ((general.get(i).entrada).get(j).origen.equals(origen)){
                         general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
                         general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
-                    }
-                }
+    }}}}
+    }
+    
+    //SEND Y RECEIVE DIRECTO IMPLÍCITO
+    void send(String origen, Cola pcola_mensajes, Mensaje pmensaje){
+        Cola cola_mensajes = pcola_mensajes;
+        Mensaje mensaje = pmensaje;
+        
+        for (int i=0;i<(this.tamaño);i++){            
+           if (general.get(i).nombre.equals(mensaje.destino)){
+               (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+           }
+           if (general.get(i).nombre.equals(mensaje.origen)){
+               (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
             }
         }
     }
-    void imprimir_mensajes(Mensajeria p){
-        for (int i=0;i<p.tamaño;i++){
-            p.general.get(i).imprime_salida();
-            p.general.get(i).imprime_entrada();
-            p.general.get(i).imprime_recibido();
-        }
+    
+    //SEND Y RECEIVE INDIRECTO DINÁMICO
+    void send(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
+        ArrayList<Proceso> procesos = pprocesos;
+        Mensaje mensaje = pmensaje;
+        for (Proceso proceso_actual : procesos){
+            proceso_actual.entrada.add(mensaje);
+    }
     }
     
-    void imprimir_procesos(){
-        for (int i=0;i<(this.tamaño);i++){
-           System.out.print("Proceso #: "+general.get(i).rank +"\n");
-           System.out.print("Nombre: "+general.get(i).nombre +"\n");
-        }
-    }
-    
+    //GENERADOR DE LA COLA PRINCIPAL, LA CUAL CONTIENE MENSAJES AÚN NO RECIBIDOS POR LOS PROCESOS
     void generar_cola(){ //Método que obtiene todos los mensajes en cola de entrada para todos los procesos.
         ArrayList <Mensaje> cola_general = new ArrayList<Mensaje>();
         for (Proceso proceso : this.general){
@@ -82,6 +100,7 @@ public class Mensajeria {
         System.out.println("FIN DE LA COLA DE MENSAJES");
     }
     
+    //DEVULEVE EL PROCESO COMO ARGUMENTO DEL RETURN
     public Proceso getProceso(String nombre,boolean with_alias){
         if (with_alias){
             for (Iterator<Proceso> it = general.iterator(); it.hasNext();) {
@@ -102,24 +121,19 @@ public class Mensajeria {
         }
     }
     
-    void sendImplicito(String origen, Cola pcola_mensajes, Mensaje pmensaje){
-        Cola cola_mensajes = pcola_mensajes;
-        Mensaje mensaje = pmensaje;
-        for (int i=0;i<(this.tamaño);i++){            
-           if (general.get(i).nombre.equals(mensaje.destino)){
-               (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-           }
-           if (general.get(i).nombre.equals(mensaje.origen)){
-               (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-           }
+    //IMPRIMIR
+    void imprimir_mensajes(Mensajeria p){
+        for (int i=0;i<p.tamaño;i++){
+            p.general.get(i).imprime_salida();
+            p.general.get(i).imprime_entrada();
+            p.general.get(i).imprime_recibido();
         }
     }
     
-    void sendDinamico(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
-        ArrayList<Proceso> procesos = pprocesos;
-        Mensaje mensaje = pmensaje;
-        for (Proceso proceso_actual : procesos){
-            proceso_actual.entrada.add(mensaje);
+    void imprimir_procesos(){
+        for (int i=0;i<(this.tamaño);i++){
+           System.out.print("Proceso #: "+general.get(i).rank +"\n");
+           System.out.print("Nombre: "+general.get(i).nombre +"\n");
         }
     }
 }
