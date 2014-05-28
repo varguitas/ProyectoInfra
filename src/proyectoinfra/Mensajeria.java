@@ -22,14 +22,15 @@ public class Mensajeria {
     }
     //DIRECTO EXPLÍCITO: Se envía a un proceso en específico con el nombre del proceso
     void sendDirectoExplicito(String origen, String destino, String msj){
-        boolean proceso1 = true;
+        boolean proceso1 = true;  //Banderas para saber si los procesos están en bloqueados anteriormente o no
         boolean proceso2 = true;
         //Comprobación de bloqueo de procesos
         if (this.sincro_send || this.sincro_receive){ //Si alguna de las sincronizaciones aplica entonces revisa
             for (int i=0;i<(this.tamaño);i++){ //Recorre por primera vez el arreglo de procesos a ver si estan bloqueados
                  if (general.get(i).nombre.equals(destino)){
-                     if (general.get(i).estado){
+                     if (general.get(i).estado || general.get(i).waitfor.equals(origen)){
                          proceso1 = true;
+                         general.get(i).waitfor = "";
                      }
                      else{
                          proceso1 = false;
@@ -49,7 +50,8 @@ public class Mensajeria {
             Mensaje mensaje = new Mensaje(origen,destino,msj);
             for (int i=0;i<(this.tamaño);i++){            
                if (general.get(i).nombre.equals(destino)){
-                   (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+                   (general.get(i).entrada).add(mensaje); //Agrega el mensaje al buzón de entrada del proceso correspondiente
+                    general.get(i).estado = true;
                    
                }
                if (general.get(i).nombre.equals(origen)){
@@ -58,20 +60,37 @@ public class Mensajeria {
                    if (this.sincro_send){
                        general.get(i).estado = false; 
                    }
-                   }
+               }
             }
         }
     }
     
     void receiveDirectoExplicito(String proceso, String origen){ //Se especifica el proceso de origen para así recibirlo
-        if (sincro_send){
-            for (int i=0;i<(this.tamaño);i++){            
-                if (general.get(i).nombre.equals(proceso)){
-                    for (int j=0;j<(general.get(i).entrada).size();j++){ 
-                        if ((general.get(i).entrada).get(j).origen.equals(origen)){
-                            general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
-                            general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+        boolean encontrado = false; //Se especifica la bandera en false, hasta que se encuentre el mensaje solicitado
+        for (int i=0;i<(this.tamaño);i++){ //recorro la lista de procesos           
+            if (general.get(i).nombre.equals(proceso)){ //Busca el proceso adecuado
+                for (int j=0;j<(general.get(i).entrada).size();j++){ //recorre el buzón de entrada del proceso adecuado
+                    if ((general.get(i).entrada).get(j).origen.equals(origen)){ //Si el origen del mensaje es igual al indicado
+                        encontrado = true; //Se encontró el mensaje
+                        if (sincro_send){
+                            for (Proceso h : this.general){
+                                if (h.nombre.equals(origen)){
+                                    h.estado = true; //Si el send es blocking se desbloquea el proceso recibido
+                                }
+                            }
                         }
+                        general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
+                        general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+                    }
+                }
+            }
+        }
+        if (sincro_receive){
+            if (!encontrado){ //Si no lo encuentra se coloca en estado de espera a que le llegue el mensaje del proceso adecuado
+                for (Proceso h : this.general){ 
+                    if (h.nombre.equals(proceso)){
+                        h.waitfor = origen;
+                        h.estado = false;
                     }
                 }
             }
@@ -203,8 +222,9 @@ public class Mensajeria {
     
     void imprimir_procesos(){
         for (int i=0;i<(this.tamaño);i++){
-           System.out.print("Proceso #: "+general.get(i).rank +"\n");
-           System.out.print("Nombre: "+general.get(i).nombre +"\n");
+           System.out.println("Proceso #: "+general.get(i).rank +"");
+           System.out.println("Nombre: "+general.get(i).nombre +"");
+           System.out.println("Estado: "+general.get(i).estado +"\n");
         }
     }
 }

@@ -10,6 +10,7 @@ public class Proceso {
     ArrayList <Mensaje> salida = new ArrayList<>(); //Contiene los mensajes enviados por un proceso
     ArrayList <Mensaje> entrada = new ArrayList<>(); //Contiene los mensajes de entrada de un proceso
     ArrayList <Mensaje> recibido = new ArrayList<>();// Contiene los mensajes que ya han sido recibidos bajo la primitiva
+    String waitfor ="";
     
     Proceso(int id, String name){
         this.rank = id;
@@ -36,4 +37,6 @@ public class Proceso {
             recibido.get(i).imprimir();
         }
     }
+    
+    
 }
