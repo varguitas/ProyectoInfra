@@ -22,24 +22,56 @@ public class Mensajeria {
     }
     //DIRECTO EXPLÍCITO: Se envía a un proceso en específico con el nombre del proceso
     void sendDirectoExplicito(String origen, String destino, String msj){
-        Mensaje mensaje = new Mensaje(origen,destino,msj);
-        for (int i=0;i<(this.tamaño);i++){            
-           if (general.get(i).nombre.equals(destino)){
-               (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-           }
-           if (general.get(i).nombre.equals(origen)){
-               (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-           }
+        boolean proceso1 = true;
+        boolean proceso2 = true;
+        //Comprobación de bloqueo de procesos
+        if (this.sincro_send || this.sincro_receive){ //Si alguna de las sincronizaciones aplica entonces revisa
+            for (int i=0;i<(this.tamaño);i++){ //Recorre por primera vez el arreglo de procesos a ver si estan bloqueados
+                 if (general.get(i).nombre.equals(destino)){
+                     if (general.get(i).estado){
+                         proceso1 = true;
+                     }
+                     else{
+                         proceso1 = false;
+                     }
+                 }
+                 if (general.get(i).nombre.equals(origen)){
+                     if (general.get(i).estado){
+                         proceso2 = true;
+                     }
+                     else{
+                         proceso2 = false;
+                     }
+                 }
+            }
+        }
+        if (proceso1 && proceso2){ //Analiza si alguno de los dos procesos está bloqueado
+            Mensaje mensaje = new Mensaje(origen,destino,msj);
+            for (int i=0;i<(this.tamaño);i++){            
+               if (general.get(i).nombre.equals(destino)){
+                   (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+                   
+               }
+               if (general.get(i).nombre.equals(origen)){
+                   (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de salida del proceso correspondiente
+                   //Si el send es blocking, el proceso envío se bloquea hasta que el origen lo reciba
+                   if (this.sincro_send){
+                       general.get(i).estado = false; 
+                   }
+                   }
+            }
         }
     }
     
     void receiveDirectoExplicito(String proceso, String origen){ //Se especifica el proceso de origen para así recibirlo
-        for (int i=0;i<(this.tamaño);i++){            
-            if (general.get(i).nombre.equals(proceso)){
-                for (int j=0;j<(general.get(i).entrada).size();j++){ 
-                    if ((general.get(i).entrada).get(j).origen.equals(origen)){
-                        general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
-                        general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+        if (sincro_send){
+            for (int i=0;i<(this.tamaño);i++){            
+                if (general.get(i).nombre.equals(proceso)){
+                    for (int j=0;j<(general.get(i).entrada).size();j++){ 
+                        if ((general.get(i).entrada).get(j).origen.equals(origen)){
+                            general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
+                            general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+                        }
                     }
                 }
             }
@@ -73,11 +105,22 @@ public class Mensajeria {
     }
         
     //INDIRECTO DINÁMICO
-    void sendIndirectoDinamico(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
-        ArrayList<Proceso> procesos = pprocesos;
-        Mensaje mensaje = pmensaje;
-        for (Proceso proceso_actual : procesos){
-            proceso_actual.entrada.add(mensaje);
+    void sendIndirectoDinamico (String proceso_origen,ArrayList <String> procesos,String mensaje){
+        for (String proceso_destino : procesos){
+            sendDirectoExplicito(proceso_origen, proceso_destino, mensaje);
+        }
+    }
+    
+    void receiveIndirectoDinamico (String destino){
+        for (int i=0;i<(this.tamaño);i++){  
+            if (general.get(i).nombre.equals(destino)){
+                    for (int j=0;j<(general.get(i).entrada).size();j++){ 
+                        if ((general.get(i).entrada).get(j).destino.equals(destino)){
+                            general.get(i).recibido.add(general.get(i).entrada.get(j));
+                            general.get(i).entrada.remove(j);
+                    }
+                }
+            }
         }
     }
     

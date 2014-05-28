@@ -24,7 +24,7 @@ public class principal extends javax.swing.JFrame {
      */
     public principal() {
         initComponents();
-        this.mensajeria= new Mensajeria(5,0,0);
+        this.mensajeria= new Mensajeria(5,false,false);
         this.consola = new Consola(false,Bitacora,this.mensajeria);
     }
 
