@@ -99,7 +99,7 @@ public class Mensajeria {
     
     //DIRECTO IMPLÍCITO: Se envía con un alias en vez de un nombre y se recibe con ese alias. Aquí es donde Bogarín es un mamador.
     void sendDirectoImplicito(String origen, String alias, String msj){
-        Mensaje mensaje = new Mensaje(origen,alias,msj);
+        /*Mensaje mensaje = new Mensaje(origen,alias,msj);
         for (int i=0;i<(this.tamaño);i++){            
            if (general.get(i).alias.equals(alias)){
                (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
@@ -107,6 +107,48 @@ public class Mensajeria {
            if (general.get(i).alias.equals(origen)){
                (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
            }
+        }
+        */
+        boolean proceso1 = true;  //Banderas para saber si los procesos están en bloqueados anteriormente o no
+        boolean proceso2 = true;
+        //Comprobación de bloqueo de procesos
+        if (this.sincro_send || this.sincro_receive){ //Si alguna de las sincronizaciones aplica entonces revisa
+            for (int i=0;i<(this.tamaño);i++){ //Recorre por primera vez el arreglo de procesos a ver si estan bloqueados
+                 if (general.get(i).alias.equals(alias)){
+                     if (general.get(i).estado || general.get(i).waitfor.equals(origen)){
+                         proceso1 = true;
+                         general.get(i).waitfor = "";
+                     }
+                     else{
+                         proceso1 = false;
+                     }
+                 }
+                 if (general.get(i).alias.equals(origen)){
+                     if (general.get(i).estado){
+                         proceso2 = true;
+                     }
+                     else{
+                         proceso2 = false;
+                     }
+                 }
+            }
+        }
+        if (proceso1 && proceso2){ //Analiza si alguno de los dos procesos está bloqueado
+            Mensaje mensaje = new Mensaje(origen,alias,msj);
+            for (int i=0;i<(this.tamaño);i++){            
+               if (general.get(i).alias.equals(alias)){
+                   (general.get(i).entrada).add(mensaje); //Agrega el mensaje al buzón de entrada del proceso correspondiente
+                    general.get(i).estado = true;
+                   
+               }
+               if (general.get(i).alias.equals(origen)){
+                   (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de salida del proceso correspondiente
+                   //Si el send es blocking, el proceso envío se bloquea hasta que el origen lo reciba
+                   if (this.sincro_send){
+                       general.get(i).estado = false;
+                   }
+               }
+            }
         }
     }
     
@@ -117,6 +159,35 @@ public class Mensajeria {
                     if ((general.get(i).entrada).get(j).origen.equals(origen)){
                         general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
                         general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+                    }
+                }
+            }
+        }
+        boolean encontrado = false; //Se especifica la bandera en false, hasta que se encuentre el mensaje solicitado
+        for (int i=0;i<(this.tamaño);i++){ //recorro la lista de procesos           
+            if (general.get(i).alias.equals(alias)){ //Busca el proceso adecuado
+                for (int j=0;j<(general.get(i).entrada).size();j++){ //recorre el buzón de entrada del proceso adecuado
+                    if ((general.get(i).entrada).get(j).origen.equals(origen)){ //Si el origen del mensaje es igual al indicado
+                        encontrado = true; //Se encontró el mensaje
+                        if (sincro_send){
+                            for (Proceso h : this.general){
+                                if (h.alias.equals(origen)){
+                                    h.estado = true; //Si el send es blocking se desbloquea el proceso recibido
+                                }
+                            }
+                        }
+                        general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
+                        general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+                    }
+                }
+            }
+        }
+        if (sincro_receive){
+            if (!encontrado){ //Si no lo encuentra se coloca en estado de espera a que le llegue el mensaje del proceso adecuado
+                for (Proceso h : this.general){ 
+                    if (h.alias.equals(alias)){
+                        h.waitfor = origen;
+                        h.estado = false;
                     }
                 }
             }

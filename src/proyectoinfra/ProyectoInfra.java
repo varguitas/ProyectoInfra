@@ -20,8 +20,10 @@ public class ProyectoInfra {
         principal.sendDirectoExplicito("P2","P3", "frijoles");
         principal.receiveDirectoExplicito("P3","P4");
         principal.sendDirectoExplicito("P4","P3", "chayote");
+         principal.receiveDirectoExplicito("P5","P1");
         //principal.receiveDirectoExplicito("P3","P4");
         principal.sendDirectoExplicito("P3","P6", "camote");
+         principal.sendDirectoExplicito("P1","P6", "garbanzos");
         /*principal.imprimir_mensajes(principal);
         //Hace el receive
         System.out.print("\nRECEIVE DEL PRIMER MENSAJE\n");*/
