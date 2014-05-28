@@ -50,18 +50,9 @@ public class Mensajeria {
     //SEND Y RECEIVE DIRECTO IMPLÍCITO
     void send(String origen, Cola pcola_mensajes, Mensaje pmensaje){
         Cola cola_mensajes = pcola_mensajes;
-        Mensaje mensaje = pmensaje;
-        
-        for (int i=0;i<(this.tamaño);i++){            
-           if (general.get(i).nombre.equals(mensaje.destino)){
-               (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-           }
-           if (general.get(i).nombre.equals(mensaje.origen)){
-               (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-            }
-        }
+        cola_mensajes.repartirMensajes(pmensaje);
     }
-    
+        
     //SEND Y RECEIVE INDIRECTO DINÁMICO
     void send(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
         ArrayList<Proceso> procesos = pprocesos;
