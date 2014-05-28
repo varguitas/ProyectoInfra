@@ -20,7 +20,7 @@ public class Mensajeria {
             this.general.add(new Proceso(i+1,"P"+(i+1)+""));
         }
     }
-    //SEND Y RECEIVE DIRECTO EXPLÍCITO
+    //DIRECTO EXPLÍCITO
     void sendDirectoExplicito(String origen, String destino, String msj){
         Mensaje mensaje = new Mensaje(origen,destino,msj);
         for (int i=0;i<(this.tamaño);i++){            
@@ -29,7 +29,8 @@ public class Mensajeria {
            }
            if (general.get(i).nombre.equals(origen)){
                (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
-    }}
+           }
+        }
     }
     
     void receiveDirectoExplicito(String proceso, String origen){
@@ -39,22 +40,45 @@ public class Mensajeria {
                     if ((general.get(i).entrada).get(j).origen.equals(origen)){
                         general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
                         general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
-    }}}}
+                    }
+                }
+            }
+        }
     }
     
-    //SEND Y RECEIVE DIRECTO IMPLÍCITO
+    //DIRECTO IMPLÍCITO
     void sendDirectoImplicito(String origen, Cola pcola_mensajes, Mensaje pmensaje){
         Cola cola_mensajes = pcola_mensajes;
         cola_mensajes.repartirMensajes(pmensaje);
     }
         
-    //SEND Y RECEIVE INDIRECTO DINÁMICO
+    
+    
+    //INDIRECTO DINÁMICO
     void sendIndirectoDinamico(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
         ArrayList<Proceso> procesos = pprocesos;
         Mensaje mensaje = pmensaje;
         for (Proceso proceso_actual : procesos){
             proceso_actual.entrada.add(mensaje);
+        }
     }
+    
+    //INDIRECTO ESTÁTICO
+    void sendIndirectoEstatico(String origen, Cola pcola_mensajes, Mensaje pmensaje){
+        Cola cola_mensajes = pcola_mensajes;
+        cola_mensajes.repartirMensajes(pmensaje);
+    }
+    void receiveIndirectoEstatico(String proceso, String cola_origen){
+        for (int i=0;i<(this.tamaño);i++){            
+            if (general.get(i).nombre.equals(proceso)){
+                for (int j=0;j<(general.get(i).entrada).size();j++){ 
+                    if ((general.get(i).entrada).get(j).origen.equals(cola_origen)){
+                        general.get(i).recibido.add(general.get(i).entrada.get(j));
+                        general.get(i).entrada.remove(j);
+                    }
+                }
+            }
+        }
     }
     
     //GENERADOR DE LA COLA PRINCIPAL, LA CUAL CONTIENE MENSAJES AÚN NO RECIBIDOS POR LOS PROCESOS
