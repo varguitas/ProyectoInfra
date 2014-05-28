@@ -8,10 +8,10 @@ import java.util.Iterator;
 public class Mensajeria {
     ArrayList <Proceso> general = new ArrayList<>();
     int tamaño; //Tamaño de la mensajería (cantidad de procesos)
-    int sincro_send; //tipo de sincronización en el send
-    int sincro_receive; //tipo de sincronización en el receive
+    boolean sincro_send; //tipo de sincronización en el send
+    boolean sincro_receive; //tipo de sincronización en el receive
 
-    Mensajeria(int tamano, int sy_send, int sy_receive){
+    Mensajeria(int tamano, boolean sy_send, boolean sy_receive){
         this.tamaño = tamano;
         this.sincro_send = sy_send;
         this.sincro_receive = sy_receive;

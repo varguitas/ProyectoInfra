@@ -12,12 +12,8 @@ public class ProyectoInfra {
         Mensaje z = new Mensaje("P280", "P620", "Segundo mensaje de prueba por PABLO");
         z.imprimir_mensaje();*/
         //DESDE EL INICIO DEFINIMOS LOS PARAMERTOS DE CONFIGURACIÓN MEDIANTE VARIABLES GLOBALES QUE SE DEFINEN INICIALMENTE
-        int sync_send; // 1 Blocking - 0 Nonblocking
-        int sync_receive; // 1 Blocking - 0 Nonblocking
-        int dir_directo; // 0 Desactivado - 1 Explícito - 2 Implícito
-        int dir_indirecto; // 0 Desactivado - 1 Estático - 2 Dinámico
         
-        Mensajeria principal = new Mensajeria(5,0,0);
+        Mensajeria principal = new Mensajeria(5,false,false);
         /*principal.imprimir();
         System.out.print("\nENVIO DEL PRIMER MENSAJE\n");
         principal.send("P1","P5", "aguacate");
