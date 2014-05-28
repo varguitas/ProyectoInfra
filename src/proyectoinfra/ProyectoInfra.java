@@ -17,17 +17,17 @@ public class ProyectoInfra {
         int dir_directo; // 0 Desactivado - 1 Explícito - 2 Implícito
         int dir_indirecto; // 0 Desactivado - 1 Estático - 2 Dinámico
         
-        Mensajeria principal = new Mensajeria(5,0,0,0,0);
-        //principal.imprimir();
-        //System.out.print("\nENVIO DEL PRIMER MENSAJE\n");
+        Mensajeria principal = new Mensajeria(5,0,0);
+        /*principal.imprimir();
+        System.out.print("\nENVIO DEL PRIMER MENSAJE\n");
         principal.send("P1","P5", "aguacate");
-        //principal.imprimir_mensajes(principal);
+        principal.imprimir_mensajes(principal);
         //Hace el receive
-        //System.out.print("\nRECEIVE DEL PRIMER MENSAJE\n");
+        System.out.print("\nRECEIVE DEL PRIMER MENSAJE\n");
         principal.receive("P5","P1");
-        //principal.imprimir_mensajes(principal);
+        principal.imprimir_mensajes(principal);
         //Envío de otro mensaje
-        //System.out.print("\nENVIO DEL SEGUNDO MENSAJE\n");
+        System.out.print("\nENVIO DEL SEGUNDO MENSAJE\n");
         principal.send("P1","P3", "chayote");
         principal.send("P4","P2", "arroz");
         principal.send("P2","P3", "frijoles");
@@ -38,6 +38,6 @@ public class ProyectoInfra {
         //System.out.print("\nRECEIVE DEL SEGUNDO MENSAJE\n");
         principal.receive("P3","P1");
         //principal.imprimir_mensajes(principal);
-        principal.generar_cola();
+        principal.generar_cola();*/
     }
 }
