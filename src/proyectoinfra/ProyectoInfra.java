@@ -16,6 +16,7 @@ public class ProyectoInfra {
         int sync_receive; // 1 Blocking - 0 Nonblocking
         int dir_directo; // 0 Desactivado - 1 Explícito - 2 Implícito
         int dir_indirecto; // 0 Desactivado - 1 Estático - 2 Dinámico
+        
         Mensajeria principal = new Mensajeria(5,0,0,0,0);
         //principal.imprimir();
         //System.out.print("\nENVIO DEL PRIMER MENSAJE\n");
