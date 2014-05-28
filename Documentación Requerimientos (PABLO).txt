@@ -14,7 +14,7 @@ SINCORNIZACIÓN:
 			b.2. El proceso continua ejecutando y abandona el intento de recepción.
 
 	TRES DE LAS COMBINACIONES MÁS TÍPICAS:
-	1. Envío bloqueante, recepción bloqueante: Ambos emisor y receptor se bloquean hasta que el mensaje se entrega, conocido 		también como rendezvous.
+	1. Envío bloqueante, recepción bloqueante: Ambos emisor y receptor se bloquean hasta que el mensaje se entrega, conocido también como rendezvous.
 	2. Envío no bloqueante, recepción bloqueante: Aunque el emisor puede continuar, el receptor se bloqueará hasta que el 	mensaje solicitado llegue. Probablemente la combinación más útil (Colocarla por default).
 	3. Envío no bloqueante, recepción no bloqueante: Ninguna de las dos partes debe esperar nada, se envía y se recibe cuando 	se desea recibir. (Problemas cuando es comunicación de procesos por red).
 

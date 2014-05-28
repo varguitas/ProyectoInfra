@@ -20,7 +20,7 @@ public class Mensajeria {
             this.general.add(new Proceso(i+1,"P"+(i+1)+""));
         }
     }
-    //DIRECTO EXPLÍCITO
+    //DIRECTO EXPLÍCITO: Se envía a un proceso en específico con el nombre del proceso
     void sendDirectoExplicito(String origen, String destino, String msj){
         Mensaje mensaje = new Mensaje(origen,destino,msj);
         for (int i=0;i<(this.tamaño);i++){            
@@ -33,7 +33,7 @@ public class Mensajeria {
         }
     }
     
-    void receiveDirectoExplicito(String proceso, String origen){
+    void receiveDirectoExplicito(String proceso, String origen){ //Se especifica el proceso de origen para así recibirlo
         for (int i=0;i<(this.tamaño);i++){            
             if (general.get(i).nombre.equals(proceso)){
                 for (int j=0;j<(general.get(i).entrada).size();j++){ 
@@ -46,14 +46,32 @@ public class Mensajeria {
         }
     }
     
-    //DIRECTO IMPLÍCITO
-    void sendDirectoImplicito(String origen, Cola pcola_mensajes, Mensaje pmensaje){
-        Cola cola_mensajes = pcola_mensajes;
-        cola_mensajes.repartirMensajes(pmensaje);
+    //DIRECTO IMPLÍCITO: Se envía con un alias en vez de un nombre y se recibe con ese alias. Aquí es donde Bogarín es un mamador.
+    void sendDirectoImplicito(String origen, String alias, String msj){
+        Mensaje mensaje = new Mensaje(origen,alias,msj);
+        for (int i=0;i<(this.tamaño);i++){            
+           if (general.get(i).alias.equals(alias)){
+               (general.get(i).entrada).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+           }
+           if (general.get(i).alias.equals(origen)){
+               (general.get(i).salida).add(mensaje);//Agrega el mensaje al buzón de entrada del proceso correspondiente
+           }
+        }
+    }
+    
+    void receiveDirectoImplicito(String alias, String origen){
+        for (int i=0;i<(this.tamaño);i++){            
+            if (general.get(i).alias.equals(alias)){
+                for (int j=0;j<(general.get(i).entrada).size();j++){ 
+                    if ((general.get(i).entrada).get(j).origen.equals(origen)){
+                        general.get(i).recibido.add(general.get(i).entrada.get(j)); //agrega el mensaje al buzon recibidos
+                        general.get(i).entrada.remove(j);//Borra el elemento del arreglo entrada
+                    }
+                }
+            }
+        }
     }
         
-    
-    
     //INDIRECTO DINÁMICO
     void sendIndirectoDinamico(String origen, ArrayList<Proceso> pprocesos, Mensaje pmensaje){
         ArrayList<Proceso> procesos = pprocesos;
